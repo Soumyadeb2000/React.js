@@ -1,7 +1,7 @@
-import './ExpenseItem.css'
-import ExpenseDate from './ExpenseDate';
-import ExpenseDetails from './ExpenseDetails';
-function ExpenseItem(props) {
+import '../Expenses/ExpenseItem.css'
+import ExpenseDate from '../Expenses/ExpenseDate';
+import ExpenseDetails from '../Expenses/ExpenseDetails';
+const ExpenseItem = (props) => {
     
     return (
         <div className='expense-item'>
