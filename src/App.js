@@ -1,8 +1,9 @@
 import ExpenseItem from "./components/Expenses/ExpenseItem";
 import ExpenseForm from "./components/Expenses/ExpenseForm";
+import { useState } from "react";
 
 const App = () => {
-  const expenses = [
+  const expenseData = [
     {
       expenseDate: new Date(2023, 9, 28),
       expenseTitle: "food",
@@ -26,12 +27,25 @@ const App = () => {
       expenseAmount: 100,
       expenseLocation: "Lucknow"
     }];
+
+    const [expenses, addExpense] = useState(expenseData);
+
+    function addExpenseHandler(expense) {
+        const newExpenses = [...expenseData, {
+          expenseDate: new Date(expense.date),
+          expenseTitle: expense.title,
+          expenseAmount: expense.amount,
+        }];
+        addExpense(newExpenses);
+        console.log(newExpenses);
+    }
+
   return (
     <div>
       <h2>Lets Start!</h2>
-      <ExpenseForm></ExpenseForm>
+      <ExpenseForm onAddExpense={addExpenseHandler}></ExpenseForm>
       {
-        expenses.map((expense, i) => 
+        expenses.map((expense) => 
           <ExpenseItem date={
             expense.expenseDate
           } title={
