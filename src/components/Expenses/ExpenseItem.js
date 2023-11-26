@@ -14,15 +14,17 @@ const ExpenseItem = (props) => {
         parent.removeChild(expenseDiv)
         
     }
-    const changeTitle = async (e) => {
+    const changeTitle = (e) => {
         e.preventDefault();
-        setTitle("Updated");
+        setTitle((prevState)=> {
+            return "updated";
+        });
         console.log(title);
     }
     return (  
         <div className='expense-item'>
             <ExpenseDate date={props.date}/>
-            <ExpenseDetails title={title} amount={props.amount} location={props.location}/>
+            <ExpenseDetails title={props.title} amount={props.amount} location={props.location}/>
             <button onClick={deleteExpense}>Delete Expense</button>
             <button onClick={changeTitle}>Change Title</button>
         </div>
