@@ -1,5 +1,6 @@
 import ExpenseItem from "./components/Expenses/ExpenseItem";
 import ExpenseForm from "./components/Expenses/ExpenseForm";
+import ExpenseFilter from "./components/Expenses/ExpenseFilter";
 import { useState } from "react";
 
 const App = () => {
@@ -37,13 +38,21 @@ const App = () => {
           expenseAmount: expense.amount,
         }];
         addExpense(newExpenses);
-        console.log(newExpenses);
+        console.log(expenses);
+    }
+    
+    const [filteredYear, setFilteredYear] = useState('2020');
+
+    const filterChangeHandler = selectedYear => {
+      setFilteredYear(selectedYear);
+      console.log(selectedYear);
     }
 
   return (
     <div>
       <h2>Lets Start!</h2>
       <ExpenseForm onAddExpense={addExpenseHandler}></ExpenseForm>
+      <ExpenseFilter selected={filteredYear} onChangeFilter={filterChangeHandler}></ExpenseFilter>
       {
         expenses.map((expense) => 
           <ExpenseItem date={
