@@ -47,12 +47,16 @@ const App = () => {
         
     }
     
-    const [filteredYear, setFilteredYear] = useState('2020');
+    const [filteredYear, setFilteredYear] = useState('2023');
 
     const filterChangeHandler = selectedYear => {
       setFilteredYear(selectedYear);
       console.log(selectedYear);
     }
+  
+  const filteredExpenses = expenses.filter((expense) => {
+    return expense.expenseDate.getFullYear().toString() === filteredYear;
+  })  
 
   return (
     <div>
@@ -60,7 +64,7 @@ const App = () => {
       <ExpenseForm onAddExpense={addExpenseHandler}></ExpenseForm>
       <ExpenseFilter selected={filteredYear} onChangeFilter={filterChangeHandler}></ExpenseFilter>
       {
-        expenses.map((expense, i) => {
+        filteredExpenses.map((expense, i) => {
           console.log(expenses)
           return (<ExpenseItem key={
             i
