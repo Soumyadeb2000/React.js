@@ -1,6 +1,7 @@
 import ExpenseItem from "./components/Expenses/ExpenseItem";
 import ExpenseForm from "./components/Expenses/ExpenseForm";
 import ExpenseFilter from "./components/Expenses/ExpenseFilter";
+import ExpenseChart from "./components/Expenses/ExpensesChart";
 import { useState } from "react";
 
 const expenseData = [
@@ -59,7 +60,7 @@ const App = () => {
   })  
   
   let expensesContent = <p>No expense found.</p>;
-  if(filteredExpenses.length != 0) {
+  if(filteredExpenses.length !== 0) {
     expensesContent = filteredExpenses.map((expense, i) => {
       return (<ExpenseItem key={
         i
@@ -80,8 +81,10 @@ const App = () => {
       <h2>Lets Start!</h2>
       <ExpenseForm onAddExpense={addExpenseHandler}></ExpenseForm>
       <ExpenseFilter selected={filteredYear} onChangeFilter={filterChangeHandler}></ExpenseFilter>
+      <ExpenseChart expenses={filteredExpenses}/>
       {filteredExpenses.length === 0 && (<p>Expenses not found</p>)}
       {filteredExpenses.length === 1 && (<p>Only single Expense here. Please add more...</p>)}
+      {expensesContent}
     </div>
   )
 }
