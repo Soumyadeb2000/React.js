@@ -53,32 +53,35 @@ const App = () => {
       setFilteredYear(selectedYear);
       console.log(selectedYear);
     }
-  
+      
   const filteredExpenses = expenses.filter((expense) => {
     return expense.expenseDate.getFullYear().toString() === filteredYear;
   })  
+  
+  let expensesContent = <p>No expense found.</p>;
+  if(filteredExpenses.length != 0) {
+    expensesContent = filteredExpenses.map((expense, i) => {
+      return (<ExpenseItem key={
+        i
+      } date={
+        expense.expenseDate
+      } title={
+        expense.expenseTitle
+      } amount={
+        expense.expenseAmount
+      } location={
+        expense.expenseLocation
+      }></ExpenseItem>) 
+    })
+  }
 
   return (
     <div>
       <h2>Lets Start!</h2>
       <ExpenseForm onAddExpense={addExpenseHandler}></ExpenseForm>
       <ExpenseFilter selected={filteredYear} onChangeFilter={filterChangeHandler}></ExpenseFilter>
-      {
-        filteredExpenses.map((expense, i) => {
-          console.log(expenses)
-          return (<ExpenseItem key={
-            i
-          } date={
-            expense.expenseDate
-          } title={
-            expense.expenseTitle
-          } amount={
-            expense.expenseAmount
-          } location={
-            expense.expenseLocation
-          }></ExpenseItem>)
-        }
-        )}
+      {filteredExpenses.length === 0 && (<p>Expenses not found</p>)}
+      {filteredExpenses.length === 1 && (<p>Only single Expense here. Please add more...</p>)}
     </div>
   )
 }
